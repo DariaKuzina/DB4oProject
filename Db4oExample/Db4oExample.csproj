@@ -67,9 +67,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Employees\Employees.csproj">
-      <Project>{99AE66C3-4F2D-46E9-BAAE-D4032074F5C7}</Project>
-      <Name>Employees</Name>
+    <ProjectReference Include="..\Network\Network.csproj">
+      <Project>{1A8FF6BF-B744-40CF-B711-4F4B5BA34286}</Project>
+      <Name>Network</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
