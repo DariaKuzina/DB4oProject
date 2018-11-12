@@ -88,9 +88,6 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>NetworkModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="NetworkModel.edmx.diagram">
-      <DependentUpon>NetworkModel.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +101,7 @@
       <LastGenOutput>NetworkCodeGenerator.cs</LastGenOutput>
       <DependentUpon>NetworkModel.edmx</DependentUpon>
     </Content>
+    <Content Include="NetworkModel.edmx.sql" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
