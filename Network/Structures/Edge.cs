@@ -13,18 +13,15 @@ namespace Network.Structures
 
         public Node Node2 { get; private set; }
 
-        public EdgeStatus Status { get; set; }
-
         public Edge(Node node1, Node node2)
         {
             Node1 = node1;
             Node2 = node2;
-            Status = EdgeStatus.Connected;
         }
 
         public override string ToString()
         {
-            return $"Node1: {Node1.Name},  Node2: {Node2.Name}, Status : {Status}";
+            return $"Node1: {Node1.Name},  Node2: {Node2.Name}";
         }
     }
 }

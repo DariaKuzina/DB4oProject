@@ -14,12 +14,16 @@ namespace Network.Structures
 
         public NodeStatus Status { get; set; }
 
+        public NodeColor Color { get; set; }
+
         public string Name { get; set; }
 
         public List<Edge> Edges { get; set; }
 
         public Node(NodeType type, string name)
         {
+            Status = NodeStatus.Connected;
+            Color = NodeColor.Green;
             Type = type;
             Name = name;
             Edges = new List<Edge>();
@@ -58,7 +62,7 @@ namespace Network.Structures
 
         public override string ToString()
         {
-            return $"Name: {Name},  Type: {Type}, Status : {Status}";
+            return $"Name: {Name},  Type: {Type}, Status: {Status}, Color : {Color}";
         }
     }
 }

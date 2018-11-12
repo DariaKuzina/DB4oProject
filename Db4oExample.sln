@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Db4oExample", "Db4oExample\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Network", "Network\Network.csproj", "{1A8FF6BF-B744-40CF-B711-4F4B5BA34286}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlDatabase", "SqlDatabase\SqlDatabase.csproj", "{703CA978-995D-4A72-825C-3E0A2B4EEFF1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1A8FF6BF-B744-40CF-B711-4F4B5BA34286}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A8FF6BF-B744-40CF-B711-4F4B5BA34286}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A8FF6BF-B744-40CF-B711-4F4B5BA34286}.Release|Any CPU.Build.0 = Release|Any CPU
+		{703CA978-995D-4A72-825C-3E0A2B4EEFF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{703CA978-995D-4A72-825C-3E0A2B4EEFF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{703CA978-995D-4A72-825C-3E0A2B4EEFF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{703CA978-995D-4A72-825C-3E0A2B4EEFF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

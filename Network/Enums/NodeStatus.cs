@@ -9,16 +9,12 @@ namespace Network.Enums
     public enum NodeStatus
     {
         /// <summary>
-        /// Полностью доступен
+        /// Связь доступна
         /// </summary>
-        Green,
+        Connected,
         /// <summary>
-        /// Доступен, но услуга деградирована
+        /// Связь недоступна
         /// </summary>
-        Yellow,
-        /// <summary>
-        /// Недоступен
-        /// </summary>
-        Red
+        Disconnected
     }
 }

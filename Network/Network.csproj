@@ -42,10 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlgoStructures\QueueItem.cs" />
-    <Compile Include="Structures\Edge.cs" />
-    <Compile Include="Enums\EdgeStatus.cs" />
-    <Compile Include="Structures\Node.cs" />
     <Compile Include="Enums\NodeStatus.cs" />
+    <Compile Include="Structures\Edge.cs" />
+    <Compile Include="Structures\Node.cs" />
+    <Compile Include="Enums\NodeColor.cs" />
     <Compile Include="Enums\NodeType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -13,7 +13,7 @@ namespace Db4oExample
         {
             using (IObjectContainer db = Db4oEmbedded.OpenFile("network.data.db4o"))
             {
-                //StoreExample(db);
+                StoreExample(db);
 
                 //fetch all Persons from the database
                 IObjectSet result = db.QueryByExample(typeof(Node));

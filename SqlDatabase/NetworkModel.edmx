@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="NetworkModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="NetworkModelTargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="NetworkModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="NetworkModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Nodes" EntityType="NetworkModel.Node" />
+          <EntitySet Name="NodeTypes" EntityType="NetworkModel.NodeType" />
+          <AssociationSet Name="NodeTypeNode" Association="NetworkModel.NodeTypeNode">
+            <End Role="NodeType" EntitySet="NodeTypes" />
+            <End Role="Node" EntitySet="Nodes" />
+          </AssociationSet>
+          <EntitySet Name="NodeStatus" EntityType="NetworkModel.NodeStatus" />
+          <AssociationSet Name="NodeStatusNode" Association="NetworkModel.NodeStatusNode">
+            <End Role="NodeStatus" EntitySet="NodeStatus" />
+            <End Role="Node" EntitySet="Nodes" />
+          </AssociationSet>
+          <EntitySet Name="NodeColors" EntityType="NetworkModel.NodeColor" />
+          <AssociationSet Name="NodeColorNode" Association="NetworkModel.NodeColorNode">
+            <End Role="NodeColor" EntitySet="NodeColors" />
+            <End Role="Node" EntitySet="Nodes" />
+          </AssociationSet>
+          <EntitySet Name="Edges" EntityType="NetworkModel.Edge" />
+          <AssociationSet Name="NodeEdge" Association="NetworkModel.NodeEdge">
+            <End Role="Node" EntitySet="Nodes" />
+            <End Role="Edge" EntitySet="Edges" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Node">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" Unicode="true" />
+          <NavigationProperty Name="NodeType" Relationship="NetworkModel.NodeTypeNode" FromRole="Node" ToRole="NodeType" />
+          <NavigationProperty Name="NodeStatus" Relationship="NetworkModel.NodeStatusNode" FromRole="Node" ToRole="NodeStatus" />
+          <NavigationProperty Name="NodeColor" Relationship="NetworkModel.NodeColorNode" FromRole="Node" ToRole="NodeColor" />
+          <NavigationProperty Name="Edges" Relationship="NetworkModel.NodeEdge" FromRole="Node" ToRole="Edge" />
+        </EntityType>
+        <EntityType Name="NodeType">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Type" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" Nullable="false" />
+          <NavigationProperty Name="Nodes" Relationship="NetworkModel.NodeTypeNode" FromRole="NodeType" ToRole="Node" />
+        </EntityType>
+        <Association Name="NodeTypeNode">
+          <End Type="NetworkModel.NodeType" Role="NodeType" Multiplicity="1" />
+          <End Type="NetworkModel.Node" Role="Node" Multiplicity="*" />
+        </Association>
+        <EntityType Name="NodeStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" Nullable="false" />
+          <NavigationProperty Name="Nodes" Relationship="NetworkModel.NodeStatusNode" FromRole="NodeStatus" ToRole="Node" />
+        </EntityType>
+        <Association Name="NodeStatusNode">
+          <End Type="NetworkModel.NodeStatus" Role="NodeStatus" Multiplicity="1" />
+          <End Type="NetworkModel.Node" Role="Node" Multiplicity="*" />
+        </Association>
+        <EntityType Name="NodeColor">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Color" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Color" Type="String" Nullable="false" />
+          <NavigationProperty Name="Nodes" Relationship="NetworkModel.NodeColorNode" FromRole="NodeColor" ToRole="Node" />
+        </EntityType>
+        <Association Name="NodeColorNode">
+          <End Type="NetworkModel.NodeColor" Role="NodeColor" Multiplicity="1" />
+          <End Type="NetworkModel.Node" Role="Node" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Edge">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Node1" Relationship="NetworkModel.NodeEdge" FromRole="Edge" ToRole="Node" />
+          <NavigationProperty Name="Node2" Relationship="NetworkModel.NodeEdge" FromRole="Edge" ToRole="Node" />
+        </EntityType>
+        <Association Name="NodeEdge">
+          <End Type="NetworkModel.Node" Role="Node" Multiplicity="1" />
+          <End Type="NetworkModel.Edge" Role="Edge" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="NetworkModel" />
+        <Alias Key="Target" Value="NetworkModel.Store" />
+        <EntityContainerMapping CdmEntityContainer="NetworkModelContainer" StorageEntityContainer="NetworkModelTargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
