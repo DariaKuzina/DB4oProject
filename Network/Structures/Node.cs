@@ -22,12 +22,18 @@ namespace Network.Structures
 
         public Node(NodeType type, string name)
         {
-            Status = NodeStatus.Connected;
+            Status = NodeStatus.Undefined;
             Color = NodeColor.Green;
             Type = type;
             Name = name;
             Edges = new List<Edge>();
+            IsAvailable = true;
         }
+        
+        /// <summary>
+        /// Actual status of the node (dummy implementation)
+        /// </summary>
+        public bool IsAvailable { get; set; }
 
         /// <summary>
         /// Найти все пути до конечного узла из текущего
@@ -58,6 +64,51 @@ namespace Network.Structures
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Проверить доступность узлов с точки зрения мониторинговой системы
+        /// </summary>
+        public void CheckAssesibility()
+        {
+            if (Type != NodeType.Monitor)
+                throw new ArgumentException("Only monitoring system can check status");
+
+            var visited = new HashSet<string>();
+            
+            //create queue for BFS
+            var queue = new Queue<Node>();
+            visited.Add(Name);
+            queue.Enqueue(this);
+
+            //loop through all nodes in queue
+            while (queue.Count != 0)
+            {
+                //Deque a vertex from queue and print it.
+                var s = queue.Dequeue();
+
+                //Get all adjacent vertices of s
+                foreach (var node in s.Edges.Select(e => e.Node2))
+                {
+                    if (!visited.Contains(node.Name))
+                    {
+                        visited.Add(node.Name);
+
+                        //if node is not available we can't go further
+                        if (node.IsAvailable)
+                        {
+                            node.Status = NodeStatus.Connected;
+                            queue.Enqueue(node);
+                        }
+                        else
+                        {
+                            node.Status = NodeStatus.Disconnected;
+                        }
+                    }
+                }
+
+            }
+
         }
 
         public override string ToString()

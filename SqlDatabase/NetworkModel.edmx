@@ -324,6 +324,17 @@
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
+      <Diagram DiagramId="9b46c626ea624a34bee441209007d785" Name="Diagram1">
+        <EntityTypeShape EntityType="NetworkModel.Node" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="NetworkModel.NodeType" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="NetworkModel.NodeStatus" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="NetworkModel.NodeColor" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NetworkModel.Edge" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="NetworkModel.NodeTypeNode" ManuallyRouted="false" />
+        <AssociationConnector Association="NetworkModel.NodeStatusNode" ManuallyRouted="false" />
+        <AssociationConnector Association="NetworkModel.NodeColorNode" ManuallyRouted="false" />
+        <AssociationConnector Association="NetworkModel.NodeEdge" ManuallyRouted="false" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
