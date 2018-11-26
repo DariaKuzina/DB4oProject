@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Network.Structures
 {
-    public class Node 
+    public class Node : IEquatable<Node>
     {
         public NodeType Type { get; set; }
 
@@ -29,7 +29,7 @@ namespace Network.Structures
             Edges = new List<Edge>();
             IsAvailable = true;
         }
-        
+
         /// <summary>
         /// Actual status of the node (dummy implementation)
         /// </summary>
@@ -39,31 +39,42 @@ namespace Network.Structures
         /// Найти все пути до конечного узла из текущего
         /// </summary>
         /// <param name="endNode">Конечный узел</param>
+        /// <param name="countConnetedOnly">Учитывать только активные узлы</param>
         /// <returns>Перечисление списков ребер, в котором каждый список формирует путь</returns>
-        public IEnumerable<List<Edge>> FindAllPaths(Node endNode)
+        public List<List<Edge>> FindAllPaths(Node endNode, bool countConnetedOnly)
         {
+            var result = new List<List<Edge>>();
+
             var queue = new Queue<QueueItem>();
-            queue.Enqueue(new QueueItem(this, new List<Edge>()));
+            if (!countConnetedOnly || Status == NodeStatus.Connected)
+                queue.Enqueue(new QueueItem(this, new List<Edge>()));
+
             while (queue.Count > 0)
             {
                 var currentItem = queue.Dequeue();
+
+                if (countConnetedOnly && currentItem.Node.Status != NodeStatus.Connected)
+                    continue;
+
                 foreach (var edge in currentItem.Node.Edges)
                 {
                     if (!currentItem.Visited.Contains(edge))
                     {
                         List<Edge> visited = new List<Edge>(currentItem.Visited);
                         visited.Add(edge);
-                        if (edge.Node2 == endNode)
+                        if (edge.Node2.Name == endNode.Name)
                         {
-                            yield return visited;
+                            result.Add(visited);
                         }
-                        else
+                        else if (!countConnetedOnly || edge.Node2.Status == NodeStatus.Connected)
                         {
                             queue.Enqueue(new QueueItem(edge.Node2, visited));
                         }
                     }
                 }
             }
+
+            return result;
         }
 
         /// <summary>
@@ -74,8 +85,9 @@ namespace Network.Structures
             if (Type != NodeType.Monitor)
                 throw new ArgumentException("Only monitoring system can check status");
 
+            Status = NodeStatus.Connected;
             var visited = new HashSet<string>();
-            
+
             //create queue for BFS
             var queue = new Queue<Node>();
             visited.Add(Name);
@@ -114,6 +126,20 @@ namespace Network.Structures
         public override string ToString()
         {
             return $"Name: {Name},  Type: {Type}, Status: {Status}, Color : {Color}";
+        }
+
+        public bool Equals(Node other)
+        {
+            return other != null && Name == other.Name;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Node);
+        }
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
         }
     }
 }

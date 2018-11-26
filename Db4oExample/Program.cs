@@ -13,7 +13,7 @@ namespace Db4oExample
         {
             using (IObjectContainer db = Db4oEmbedded.OpenFile("network.data.db4o"))
             {
-                //StoreExample(db);
+                StoreExample(db);
 
                 ColorClientAvailable(db);
             }
@@ -36,8 +36,31 @@ namespace Db4oExample
             var consumer = nodes.FirstOrDefault(n => n.Type == NodeType.Consumer);
             var monitor = nodes.FirstOrDefault(n => n.Type == NodeType.Monitor);
 
+            //Строим топологию
+            var paths = source.FindAllPaths(consumer, false);
+
+            //Проверяем доступность узлов из мониторинговой системы
             monitor.CheckAssesibility();
-            var paths = source.FindAllPaths(consumer);
+
+            //Ищем только доступные пути
+            var pathsAvailable = source.FindAllPaths(consumer, true);
+
+            var vertexes = paths.SelectMany(p => p.Select(n => n.Node1))
+                .Union(paths.SelectMany(p => p.Select(n => n.Node2)))
+                .Distinct();
+
+            if (pathsAvailable.Count == 0)
+                consumer.Color = NodeColor.Red;
+            else if (pathsAvailable.Count < paths.Count)
+                consumer.Color = NodeColor.Yellow;
+            else
+                consumer.Color = NodeColor.Green;
+
+            foreach (var v in vertexes)
+            {
+                Console.WriteLine(v);
+
+            }
 
             //Close the database
             db.Close();
@@ -52,6 +75,10 @@ namespace Db4oExample
             Node b = new Node(NodeType.Intermediate, "B");
             Node c = new Node(NodeType.Intermediate, "C");
             Node d = new Node(NodeType.Intermediate, "D");
+
+            //Устанавливаем "настоящий" статус узла
+            b.IsAvailable = false;
+            a.IsAvailable = false;
 
             p.Edges.Add(new Edge(p, c));
             c.Edges.Add(new Edge(c, p));
@@ -72,7 +99,7 @@ namespace Db4oExample
             d.Edges.Add(new Edge(d, b));
 
             d.Edges.Add(new Edge(d, u));
-            b.Edges.Add(new Edge(b, d));
+            u.Edges.Add(new Edge(u, d));
 
             db.Store(p);
             db.Store(m);
